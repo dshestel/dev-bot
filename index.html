@@ -59,13 +59,13 @@
         const userId = user ? user.id : null;
 
         createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/monopoly-hosting.data.unityweb",
-        frameworkUrl: "Build/monopoly-hosting.framework.js.unityweb",
-        codeUrl: "Build/monopoly-hosting.wasm.unityweb",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "monopoly",
-        productVersion: "0.1",
+          dataUrl: "Build/monopoly-hosting.data.br",
+          frameworkUrl: "Build/monopoly-hosting.framework.js.br",
+          codeUrl: "Build/monopoly-hosting.wasm.br",
+          streamingAssetsUrl: "StreamingAssets",
+          companyName: "DefaultCompany",
+          productName: "monopoly",
+          productVersion: "0.1",
         // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
         }).then((unityInstance) => {
