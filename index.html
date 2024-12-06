@@ -137,15 +137,6 @@
           .then((unityInstance) => {
             document.getElementById("loading-screen").style.display = "none";
             document.getElementById("unity-container").style.display = "block";
-
-            // Передача данных пользователя в Unity
-            if (userId) {
-              unityInstance.SendMessage('TelegramManager', 'OnReceiveUserId', JSON.stringify(userId));
-              unityInstance.SendMessage('TelegramManager', 'OnReceiveUserName', JSON.stringify(user.first_name + " " + (user.last_name || "")));
-            } else {
-              unityInstance.SendMessage('TelegramManager', 'OnReceiveUserId', "-1");
-              unityInstance.SendMessage('TelegramManager', 'OnReceiveUserName', "Fluffy Mayor");
-            }
           })
           .catch((message) => {
             console.error(message);
