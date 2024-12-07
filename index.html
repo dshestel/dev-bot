@@ -151,8 +151,18 @@
           updateProgress(progress);
         })
           .then((unityInstance) => {
-            //document.getElementById("loading-screen").style.display = "none";
             document.getElementById("unity-container").style.display = "block";
+            window.unityInstance = unityInstance;
+            if (userId) {
+              // userId - есть объект
+              // конвертирую userId в string и отправляю в TelegramManager
+              unityInstance.SendMessage('TelegramManager', 'OnReceiveUserId', JSON.stringify(userId));
+              unityInstance.SendMessage('TelegramManager', 'OnReceiveUserName',  JSON.stringify(user.first_name + " " + user.last_name));
+            }
+            else{
+              unityInstance.SendMessage('TelegramManager', 'OnReceiveUserId', '-1');
+              unityInstance.SendMessage('TelegramManager', 'OnReceiveUserName', "Fluffy Mayor");
+            }
           })
           .catch((message) => {
             console.error(message);
