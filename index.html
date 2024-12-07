@@ -96,6 +96,19 @@
     </div>
 
     <script>
+      function ApplicationLaunched() {
+        progressBar.style.width = "75%";
+      }
+
+      function ApplicationLoaded() {
+        progressBar.style.width = "100%";
+
+        setTimeout(() => {
+          document.getElementById("loading-screen").style.display = "none";
+          document.getElementById("unity-container").style.display = "block";
+        }, 500);
+      }
+
       // Firebase configuration
       const firebaseConfig = {
         apiKey: "AIzaSyAa8B_Z0avWSifOBctcCZdrH9JmVHkwigE",
@@ -131,11 +144,9 @@
       };
 
       var progressBar = document.getElementById("loading-bar-progress");
-      var loadingText = document.getElementById("loading-text");
 
       function updateProgress(progress) {
-        progressBar.style.width = progress * 100 + "%";
-        loadingText.textContent = `Loading... ${Math.floor(progress * 100)}%`;
+        progressBar.style.width = progress * 50 + "%";
       }
 
       var script = document.createElement("script");
@@ -145,7 +156,7 @@
           updateProgress(progress);
         })
           .then((unityInstance) => {
-            document.getElementById("loading-screen").style.display = "none";
+            //document.getElementById("loading-screen").style.display = "none";
             document.getElementById("unity-container").style.display = "block";
           })
           .catch((message) => {
