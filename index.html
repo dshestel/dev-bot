@@ -41,6 +41,12 @@
         margin-bottom: 20px;
       }
 
+      .logo {
+        width: 250px; /* Размер логотипа */
+        height: auto;
+        margin-bottom: 20px; /* Отступ между логотипом и прогресс баром */
+      }
+
       .circular-container {
         position: relative;
         width: 45px;
@@ -109,6 +115,8 @@
   <body>
     <div id="loading-screen">
       <div class="loading-group">
+        <!-- Добавленный логотип -->
+        <img src="TemplateData/Logo.png" class="logo" alt="Logo">
         <div class="circular-container rotating">
           <svg class="circular" viewBox="0 0 100 100">
             <circle class="circle circle-background" cx="50" cy="50" r="45"></circle>
