@@ -13,14 +13,12 @@
         overflow: hidden;
         font-family: Arial, sans-serif;
       }
-
       #unity-container {
         position: absolute;
         width: 100%;
         height: 100%;
         display: none;
       }
-
       #loading-screen {
         position: absolute;
         width: 100%;
@@ -29,54 +27,55 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-end;
-        background: url('TemplateData/LoadingBackIcon.png') no-repeat center center;
+        background: url("TemplateData/LoadingBackIcon.png") no-repeat center center;
         background-size: cover;
         z-index: 10;
       }
-
       .loading-group {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-bottom: 20px;
       }
-
       .logo {
-        width: 250px; /* Размер логотипа */
+        width: 250px;
         height: auto;
-        margin-bottom: 20px; /* Отступ между логотипом и прогресс баром */
+        margin-bottom: 15px;
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
       }
-
+      .roadmap {
+        width: 250px;
+        height: auto;
+        margin-bottom: 15px;
+      }
       .circular-container {
         position: relative;
         width: 45px;
         height: 45px;
         margin-bottom: 23px;
       }
-
       .circular {
         width: 100%;
         height: 100%;
         transform: rotate(-90deg);
       }
-
       .circle {
         fill: none;
         stroke-width: 10;
         transform-origin: center;
         transition: stroke-dasharray 0.3s ease;
       }
-
       .circle-background {
         stroke: rgba(255, 255, 255, 0.3);
       }
-
       .circle-progress {
-        stroke: #00B2FF; 
+        stroke: #00B2FF;
         stroke-linecap: round;
         stroke-dasharray: 0 283;
       }
-
       @keyframes spin {
         0% {
           transform: rotate(0deg);
@@ -85,11 +84,9 @@
           transform: rotate(360deg);
         }
       }
-
       .rotating {
-        animation: spin 1.5s linear infinite; 
+        animation: spin 1.5s linear infinite;
       }
-
       #progress-percentage {
         position: absolute;
         top: 50%;
@@ -99,7 +96,6 @@
         font-size: 16px;
         font-family: Arial, sans-serif;
       }
-
       #hashtag {
         margin-top: 10px;
         font-size: 1.5em;
@@ -115,8 +111,8 @@
   <body>
     <div id="loading-screen">
       <div class="loading-group">
-        <!-- Добавленный логотип -->
         <img src="TemplateData/Logo.png" class="logo" alt="Logo">
+        <img src="TemplateData/Roadmap.png" class="roadmap" alt="Roadmap">
         <div class="circular-container rotating">
           <svg class="circular" viewBox="0 0 100 100">
             <circle class="circle circle-background" cx="50" cy="50" r="45"></circle>
@@ -125,27 +121,21 @@
         </div>
       </div>
     </div>
-
     <div id="unity-container">
       <canvas id="unity-canvas" style="width: 100%; height: 100%"></canvas>
     </div>
-
     <script>
       const progressCircle = document.getElementById("progress-circle");
       const circumference = 2 * Math.PI * 45; // 2πr for the circle radius
-
       let progress = 0;
-
       function setProgress(value) {
         progress = Math.min(Math.max(value, 0), 100); // Clamp progress between 0 and 100
         const offset = circumference - (progress / 100) * circumference;
         progressCircle.style.strokeDasharray = `${circumference - offset} ${circumference}`;
       }
-
       function ApplicationLaunched() {
         setProgress(75);
       }
-
       function ApplicationLoaded() {
         setProgress(100);
         setTimeout(() => {
@@ -153,7 +143,6 @@
           document.getElementById("unity-container").style.display = "block";
         }, 1000);
       }
-
       const firebaseConfig = {
         apiKey: "AIzaSyAa8B_Z0avWSifOBctcCZdrH9JmVHkwigE",
         authDomain: "web-monopoly-f8bc3.firebaseapp.com",
@@ -165,17 +154,13 @@
         measurementId: "G-NQYDT0E4DJ",
       };
       firebase.initializeApp(firebaseConfig);
-
       const tg = window.Telegram.WebApp;
       tg.expand();
-
       const initDataUnsafe = tg.initDataUnsafe;
       const user = initDataUnsafe.user;
       const userId = user ? user.id : null;
-
       var buildUrl = "Build";
       var loaderUrl = buildUrl + "/monopoly-hosting.loader.js";
-
       var config = {
         dataUrl: buildUrl + "/monopoly-hosting.data.unityweb",
         frameworkUrl: buildUrl + "/monopoly-hosting.framework.js.unityweb",
@@ -185,7 +170,6 @@
         productName: "Richie - My Fluffy Mayor",
         productVersion: "0.1",
       };
-
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
@@ -207,7 +191,6 @@
             console.error(message);
           });
       };
-
       document.body.appendChild(script);
     </script>
   </body>
