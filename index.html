@@ -41,7 +41,7 @@
             height: auto;
             margin-top: 50px;
             position: fixed;
-            top: 50px;
+            top: 350px;
         }
 
         @keyframes spin {
@@ -56,7 +56,7 @@
             width: 250px;
             height: auto;
             position: absolute;
-            bottom: 220px; /* Размещаем roadmap чуть выше circular */
+            bottom: 500px; /* Размещаем roadmap чуть выше circular */
         }
         .rotating {
             animation: spin 1.5s linear infinite;
@@ -69,7 +69,7 @@
         }
         .circular-container {
             position: absolute;
-            bottom: -30px; /* Расположим circular снизу */
+            bottom: 280px; /* Расположим circular снизу */
             width: 300px;
             height: 300px;
         }
@@ -80,7 +80,7 @@
         }
         .circle {
             fill: none;
-            stroke-width: 6;
+            stroke-width: 5;
             transform-origin: center;
             transition: stroke-dasharray 0.3s ease;
         }
@@ -105,8 +105,8 @@
           <img src="TemplateData/Roadmap.png" class="roadmap" alt="Roadmap">
           <div class="circular-container rotating">
               <svg class="circular" viewBox="0 0 100 100">
-                  <circle class="circle circle-background" cx="50" cy="50" r="20"></circle>
-                  <circle class="circle circle-progress" cx="50" cy="50" r="20" id="progress-circle"></circle>
+                  <circle class="circle circle-background" cx="50" cy="50" r="15"></circle>
+                  <circle class="circle circle-progress" cx="50" cy="50" r="15" id="progress-circle"></circle>
               </svg>
           </div>
         </div>
@@ -118,8 +118,8 @@
     
     <script>
         function adjustScale() {
-            let scaleX = window.innerWidth / 1080;
-            let scaleY = window.innerHeight / 1920;
+            let scaleX = window.innerWidth / 600;
+            let scaleY = window.innerHeight / 1220;
             let scale = Math.min(scaleX, scaleY);
             document.getElementById("wrapper").style.transform = `scale(${scale})`;
             document.getElementById("wrapper").style.left = `${(window.innerWidth - 1080 * scale) / 2}px`;
