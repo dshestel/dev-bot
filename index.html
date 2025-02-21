@@ -1,213 +1,202 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes">
     <title>Richie - My Fluffy Mayor</title>
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-        background-color: #000;
-        overflow: hidden;
-        font-family: Arial, sans-serif;
-      }
-
-      #unity-container {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        display: none;
-      }
-
-      #loading-screen {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-end;
-        background: url('TemplateData/LoadingBackIcon.png') no-repeat center center;
-        background-size: cover;
-        z-index: 10;
-      }
-
-      .loading-group {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-
-      .logo {
-        width: 250px;
-        height: auto;
-        margin-bottom: 15px;
-      }
-
-      .circular-container {
-        position: relative;
-        width: 45px;
-        height: 45px;
-        margin-bottom: 23px;
-      }
-
-      .circular {
-        width: 100%;
-        height: 100%;
-        transform: rotate(-90deg);
-      }
-
-      .circle {
-        fill: none;
-        stroke-width: 10;
-        transform-origin: center;
-        transition: stroke-dasharray 0.3s ease;
-      }
-
-      .circle-background {
-        stroke: rgba(255, 255, 255, 0.3);
-      }
-
-      .circle-progress {
-        stroke: #00B2FF; 
-        stroke-linecap: round;
-        stroke-dasharray: 0 283;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
         }
-        100% {
-          transform: rotate(360deg);
+        #unity-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: none;
         }
-      }
+        #loading-screen {
+          position: fixed;
+          width: 100vw;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+          background: url("TemplateData/LoadingBackIcon.png") no-repeat center center;
+          background-size: cover;
+          z-index: 10;
+        }
 
-      .rotating {
-        animation: spin 1.5s linear infinite; 
-      }
+        .loading-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo {
+            width: 250px;
+            height: auto;
+            margin-top: 50px;
+            position: fixed;
+            top: 350px;
+        }
 
-      #progress-percentage {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 16px;
-        font-family: Arial, sans-serif;
-      }
-
-      #hashtag {
-        margin-top: 10px;
-        font-size: 1.5em;
-        font-weight: bold;
-        color: white;
-        text-shadow: 0px 0px 5px black;
-      }
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+        .roadmap {
+            width: 250px;
+            height: auto;
+            position: absolute;
+            bottom: 510px; /* Размещаем roadmap чуть выше circular */
+        }
+        .rotating {
+            animation: spin 1.5s linear infinite;
+        }
+        #wrapper {
+            width: 1080px;
+            height: 1920px;
+            transform-origin: top left;
+            position: absolute;
+        }
+        .circular-container {
+            position: absolute;
+            bottom: 290px; /* Расположим circular снизу */
+            width: 300px;
+            height: 300px;
+        }
+        .circular {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        .circle {
+            fill: none;
+            stroke-width: 5;
+            transform-origin: center;
+            transition: stroke-dasharray 0.3s ease;
+        }
+        .circle-background {
+            stroke: rgba(255, 255, 255, 0.3);
+        }
+        .circle-progress {
+            stroke: #00B2FF;
+            stroke-linecap: round;
+            stroke-dasharray: 0 283;
+        }
     </style>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  </head>
-  <body>
+</head>
+<body>
     <div id="loading-screen">
-      <div class="loading-group">
-        <img src="TemplateData/Logo.png" class="logo" alt="Logo">
-        <div class="circular-container rotating">
-          <svg class="circular" viewBox="0 0 100 100">
-            <circle class="circle circle-background" cx="50" cy="50" r="45"></circle>
-            <circle class="circle circle-progress" cx="50" cy="50" r="45" id="progress-circle"></circle>
-          </svg>
+      <div id="wrapper">
+        <div class="loading-group">
+          <img src="TemplateData/Logo.png" class="logo" alt="Logo">
+          <img src="TemplateData/Roadmap.png" class="roadmap" alt="Roadmap">
+          <div class="circular-container rotating">
+              <svg class="circular" viewBox="0 0 100 100">
+                  <circle class="circle circle-background" cx="50" cy="50" r="15"></circle>
+                  <circle class="circle circle-progress" cx="50" cy="50" r="15" id="progress-circle"></circle>
+              </svg>
+          </div>
         </div>
-      </div>
+        <div id="unity-container">
+            <canvas id="unity-canvas" style="width: 100%; height: 100%"></canvas>
+        </div>
     </div>
-
-    <div id="unity-container">
-      <canvas id="unity-canvas" style="width: 100%; height: 100%"></canvas>
     </div>
-
+    
     <script>
-      const progressCircle = document.getElementById("progress-circle");
-      const circumference = 2 * Math.PI * 45; // 2πr for the circle radius
+        function adjustScale() {
+            let scaleX = window.innerWidth / 600;
+            let scaleY = window.innerHeight / 1220;
+            let scale = Math.min(scaleX, scaleY);
+            document.getElementById("wrapper").style.transform = `scale(${scale})`;
+            document.getElementById("wrapper").style.left = `${(window.innerWidth - 1080 * scale) / 2}px`;
+            document.getElementById("wrapper").style.top = `${(window.innerHeight - 1920 * scale) / 2}px`;
+        }
+        window.addEventListener("resize", adjustScale);
+        window.addEventListener("load", adjustScale);
 
-      let progress = 0;
-
-      function setProgress(value) {
-        progress = Math.min(Math.max(value, 0), 100); // Clamp progress between 0 and 100
-        const offset = circumference - (progress / 100) * circumference;
-        progressCircle.style.strokeDasharray = `${circumference - offset} ${circumference}`;
-      }
-
-      function ApplicationLaunched() {
-        setProgress(75);
-      }
-
-      function ApplicationLoaded() {
-        setProgress(100);
-        setTimeout(() => {
-          document.getElementById("loading-screen").style.display = "none";
-          document.getElementById("unity-container").style.display = "block";
-        }, 1000);
-      }
-
-      const firebaseConfig = {
-        apiKey: "AIzaSyAa8B_Z0avWSifOBctcCZdrH9JmVHkwigE",
-        authDomain: "web-monopoly-f8bc3.firebaseapp.com",
-        databaseURL: "https://web-monopoly-f8bc3-default-rtdb.firebaseio.com",
-        projectId: "web-monopoly-f8bc3",
-        storageBucket: "web-monopoly-f8bc3.appspot.com",
-        messagingSenderId: "687910190417",
-        appId: "1:687910190417:web:e0754d127a6358d5586770",
-        measurementId: "G-NQYDT0E4DJ",
-      };
-      firebase.initializeApp(firebaseConfig);
-
-      const tg = window.Telegram.WebApp;
-      tg.expand();
-
-      const initDataUnsafe = tg.initDataUnsafe;
-      const user = initDataUnsafe.user;
-      const userId = user ? user.id : null;
-
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/monopoly-hosting.loader.js";
-
-      var config = {
-        dataUrl: buildUrl + "/monopoly-hosting.data.unityweb",
-        frameworkUrl: buildUrl + "/monopoly-hosting.framework.js.unityweb",
-        codeUrl: buildUrl + "/monopoly-hosting.wasm.unityweb",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "Richie - My Fluffy Mayor",
-        productVersion: "0.1",
-      };
-
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(document.querySelector("#unity-canvas"), config, (progress) => {
-          setProgress(progress * 50);
-        })
-          .then((unityInstance) => {
-            document.getElementById("unity-container").style.display = "block";
-            window.unityInstance = unityInstance;
-            if (userId) {
-              unityInstance.SendMessage("TelegramManager", "OnReceiveUserId", JSON.stringify(userId));
-              unityInstance.SendMessage("TelegramManager", "OnReceiveUserName", JSON.stringify(user.first_name + " " + user.last_name));
-            } else {
-              unityInstance.SendMessage("TelegramManager", "OnReceiveUserId", "-1");
-              unityInstance.SendMessage("TelegramManager", "OnReceiveUserName", "Fluffy Mayor");
+        const progressCircle = document.getElementById("progress-circle");
+        const circumference = 2 * Math.PI * 45;
+        let progress = 0;
+        function setProgress(value) {
+            progress = Math.min(Math.max(value, 0), 100);
+            const offset = circumference - (progress / 100) * circumference;
+            if (progressCircle) {
+                progressCircle.style.strokeDasharray = `${circumference - offset} ${circumference}`;
             }
-          })
-          .catch((message) => {
-            console.error(message);
-          });
-      };
-
-      document.body.appendChild(script);
+        }
+        function ApplicationLaunched() {
+            setProgress(75);
+        }
+        function ApplicationLoaded() {
+            setProgress(100);
+            setTimeout(() => {
+                document.getElementById("loading-screen").style.display = "none";
+                document.getElementById("unity-container").style.display = "block";
+            }, 1000);
+        }
+        const firebaseConfig = {
+            apiKey: "AIzaSyAa8B_Z0avWSifOBctcCZdrH9JmVHkwigE",
+            authDomain: "web-monopoly-f8bc3.firebaseapp.com",
+            databaseURL: "https://web-monopoly-f8bc3-default-rtdb.firebaseio.com",
+            projectId: "web-monopoly-f8bc3",
+            storageBucket: "web-monopoly-f8bc3.appspot.com",
+            messagingSenderId: "687910190417",
+            appId: "1:687910190417:web:e0754d127a6358d5586770",
+            measurementId: "G-NQYDT0E4DJ",
+        };
+        firebase.initializeApp(firebaseConfig);
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        const initDataUnsafe = tg.initDataUnsafe;
+        const user = initDataUnsafe.user;
+        const userId = user ? user.id : null;
+        var buildUrl = "Build";
+        var loaderUrl = buildUrl + "/monopoly-hosting.loader.js";
+        var config = {
+            dataUrl: buildUrl + "/monopoly-hosting.data.unityweb",
+            frameworkUrl: buildUrl + "/monopoly-hosting.framework.js.unityweb",
+            codeUrl: buildUrl + "/monopoly-hosting.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "DefaultCompany",
+            productName: "Richie - My Fluffy Mayor",
+            productVersion: "0.1",
+        };
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(document.querySelector("#unity-canvas"), config, (progress) => {
+                setProgress(progress * 50);
+            })
+            .then((unityInstance) => {
+                document.getElementById("unity-container").style.display = "block";
+                window.unityInstance = unityInstance;
+                if (userId) {
+                    unityInstance.SendMessage("TelegramManager", "OnReceiveUserId", JSON.stringify(userId));
+                    unityInstance.SendMessage("TelegramManager", "OnReceiveUserName", JSON.stringify(user.first_name + " " + user.last_name));
+                } else {
+                    unityInstance.SendMessage("TelegramManager", "OnReceiveUserId", "-1");
+                    unityInstance.SendMessage("TelegramManager", "OnReceiveUserName", "Fluffy Mayor");
+                }
+            })
+            .catch((message) => {
+                console.error(message);
+            });
+        };
+        document.body.appendChild(script);
     </script>
-  </body>
+</body>
 </html>
