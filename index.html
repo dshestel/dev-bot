@@ -199,7 +199,7 @@
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(document.querySelector("#unity-canvas"), config, (progress) => {
-          //setProgress(progress * 50);
+          setProgress(progress * 50);
         })
           .then((unityInstance) => {
             document.getElementById("unity-container").style.display = "block";
