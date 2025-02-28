@@ -8,7 +8,6 @@ var playDeckBridge = (function() {
         if (!playdeck) return;
 
         console.log(playdeck);
-        console.log("here: " + playdeck.method);
 
         if (playdeck.method === "getUserProfile") {
             _unityInstance?.SendMessage("PlayDeckBridge", "GetUserHandler", JSON.stringify(playdeck.value))
@@ -20,7 +19,7 @@ var playDeckBridge = (function() {
             _unityInstance.SendMessage("PlayDeckBridge", "GetDataHandler", data);
         }
         else if (playdeck.method === "requestPayment") {
-            console.log(playdeck.value);
+            console.log("|requestPayment| " + playdeck.value);
             _unityInstance?.SendMessage("PlayDeckBridge", "RequestPaymentHandler", JSON.stringify(playdeck.value))
         }
         else if (playdeck.method === "getPaymentInfo") {
