@@ -5,9 +5,8 @@ var playDeckBridge = (function() {
     const handleReceiveMessage = (message) => {
         const playdeck = message?.data?.playdeck;
 
-        if (!playdeck) return;
-
         console.log(playdeck);
+        if (!playdeck) return;
 
         if (playdeck.method === "getUserProfile") {
             _unityInstance?.SendMessage("PlayDeckBridge", "GetUserHandler", JSON.stringify(playdeck.value))
