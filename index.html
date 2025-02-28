@@ -198,12 +198,15 @@
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
+        const playdeckBridgeInstance = playDeckBridge();
         createUnityInstance(document.querySelector("#unity-canvas"), config, (progress) => {
+          playdeckBridgeInstance?.setLoadingProgress(progress * 100)
           setProgress(progress * 50);
         })
           .then((unityInstance) => {
             document.getElementById("unity-container").style.display = "block";
             window.unityInstance = unityInstance;
+            playdeckBridgeInstance?.init(unityInstance);
             if (userId) {
               unityInstance.SendMessage("TelegramManager", "OnReceiveUserId", JSON.stringify(userId));
               unityInstance.SendMessage("TelegramManager", "OnReceiveUserName", JSON.stringify(user.first_name + " " + user.last_name));
