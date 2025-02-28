@@ -18,7 +18,8 @@ var playDeckBridge = (function() {
             _unityInstance.SendMessage("PlayDeckBridge", "GetDataHandler", data);
         }
         else if (playdeck.method === "requestPayment") {
-            console.log("|requestPayment| " + playdeck.value);
+            console.log("|requestPayment| ");
+            console.log(playdeck.value);
             _unityInstance?.SendMessage("PlayDeckBridge", "RequestPaymentHandler", JSON.stringify(playdeck.value))
         }
         else if (playdeck.method === "getPaymentInfo") {
