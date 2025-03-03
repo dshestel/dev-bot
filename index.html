@@ -147,7 +147,9 @@
       let progress = 0;
 
       function setProgress(value) {
+        const playdeckBridgeInstance = playDeckBridge();
         progress = Math.min(Math.max(value, 0), 100);
+        playdeckBridgeInstance?.setLoadingProgress(progress)
         const offset = circumference - (progress / 100) * circumference;
         progressCircle.style.strokeDasharray = `${circumference - offset} ${circumference}`;
       }
@@ -201,7 +203,6 @@
       script.onload = () => {
         const playdeckBridgeInstance = playDeckBridge();
         createUnityInstance(document.querySelector("#unity-canvas"), config, (progress) => {
-          playdeckBridgeInstance?.setLoadingProgress(progress * 100)
           setProgress(progress * 50);
         })
           .then((unityInstance) => {
