@@ -5,9 +5,9 @@ var config = {
   frameworkUrl: buildUrl + "/monopoly-hosting.framework.js.unityweb",
   codeUrl: buildUrl + "/monopoly-hosting.wasm.unityweb",
   streamingAssetsUrl: "StreamingAssets",
-  companyName: "DefaultCompany",
-  productName: "Richie - My Fluffy Mayor",
-  productVersion: "0.1",
+  companyName: "Jungle Tavern",
+  productName: "Richie - Metapolis Mayor",
+  productVersion: "1.1.1",
 };
 
 var script = document.createElement("script");
