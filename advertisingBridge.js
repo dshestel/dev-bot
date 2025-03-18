@@ -1,7 +1,7 @@
 let _unityInstance;
 
 function showRewarded() {
-    show_9040716('pop').then(() => {
+    show_9040716().then(() => {
         window.focus();
         _unityInstance.SendMessage("AdvertisingService", "RewardedShown");
     }).catch(error => {
